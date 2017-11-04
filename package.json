@@ -1,0 +1,31 @@
+{
+  "name": "dally",
+  "version": "1.0.0",
+  "description": "quick build html server",
+  "main": "bin/dally.js",
+  "bin": {
+    "dally": "dally.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KenyeeC/dally.git"
+  },
+  "keywords": [
+    "a",
+    "html",
+    "server"
+  ],
+  "author": "kenyeecheung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KenyeeC/dally/issues"
+  },
+  "homepage": "https://github.com/KenyeeC/dally#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "yargs": "^10.0.3"
+  }
+}
