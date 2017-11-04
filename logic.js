@@ -1,10 +1,8 @@
 var express = require('express')
+var path = require('path')
 var app = express()
 
 module.exports = function(argv, destinationPath){
-  
-  var arguments = process.argv.splice(2)
-  console.log('arguments:', arguments)
 
   // default to render index.html
   var htmlName = argv._[0] || 'index'
@@ -13,10 +11,9 @@ module.exports = function(argv, destinationPath){
   
   app.set("views", destinationPath)
   app.set("view engine", "html")
-  // app.engine('html', require('ejs').renderFile)
   
   app.get('/', function (req, res) {
-    res.render( htmlName+'.html');
+    res.sendFile( path.join(destinationPath,htmlName+'.html'))
   })
   
   // default to port 3000
