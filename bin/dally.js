@@ -11,15 +11,14 @@ var argv = require('yargs')
 
   .options({
     //options
-    'run': {
-      boolean: false,
-      describe: 'handle all css and javascript files. (Default value, if you miss or input a wrong option, it equal to execute FM --run)'
+    'port':{
+      alias: 'p',
+      describe: 'server port',
     }
   })
   .help()
   .argv
 
-var destinationPath = path.resolve('.');
-var exe = logic(argv,destinationPath);
-console.log('exe-->',exe);
+var destinationPath = path.resolve('.')
+logic(argv,destinationPath)
 

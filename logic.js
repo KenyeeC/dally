@@ -1,21 +1,29 @@
-var express = require('express');
+var express = require('express')
+var app = express()
 
-var app = express();
+module.exports = function(argv, destinationPath){
+  
+  // default to render index.html
+  var htmlName = argv._[0] || 'index'
 
+  app.use(express.static(destinationPath))
+  
+  app.set("views", destinationPath)
+  app.set("view engine", "html")
+  // app.engine('html', require('ejs').renderFile)
+  
+  app.get('/', function (req, res) {
+    res.render( htmlName+'.html');
+  })
+  
+  // default to port 3000
+  var port = isNaN(Number(port)) ? 3000 : Number(port)
 
-app.use(express.static(__dirname));
+  var server = app.listen(port, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log('dally listening at http://%s:%s', host, port);
+  });
 
-// 解析html模板
-app.set("views", __dirname);
-app.set("view engine", "html");
-app.engine('html', require('ejs').renderFile);
+}
 
-app.get('/', function (req, res) {
-  res.render('index.html');
-});
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
-});
