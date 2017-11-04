@@ -6,21 +6,24 @@ Easy to render your html file on server
 
 ## How to use
 
-- Enter your project paht 
+- Entry your project path 
 
 - Enter the following command. 
 
+It will render index.html under your current path on port 3000 by default
 ```
-    dally  // It will render index.html under your current path on port 3000 by default 
+dally   
 ```
 - Done ! Dally your font-end project!
 
 
 ## Feature
 - Specify html file to reder
+It will render example.html
 ```
-    dally example // It will render example.html
+dally example 
 ```
+
 
 - Specify server port
 
