@@ -3,16 +3,14 @@ var logic = require('../logic');
 var path = require('path');
 
 var argv = require('yargs')
-  .command('------------ dally help -----------')
-  .command('dally [html]')
-  .command('EXAMPLE:')
-  .command('#  dally              //default to run index.html')
-  .command('#  dally   example    //run example.html')
+  .command('[html] [port]')
+  .command('example // render example.html')
 
   .options({
     //options
     'port':{
       alias: 'p',
+      default: 3000,
       describe: 'server port',
     }
   })
@@ -20,5 +18,5 @@ var argv = require('yargs')
   .argv
 
 var destinationPath = path.resolve('.')
-logic(argv,destinationPath)
+logic(argv, destinationPath)
 
