@@ -1,11 +1,36 @@
 var express = require('express')
 var path = require('path')
+var fs = require('fs')
 var app = express()
 
 module.exports = function(argv, destinationPath){
 
-  // default to render index.html
-  var htmlName = argv._[0] || 'index'
+  // default to render exist html or index.html
+  var files = fs.readdirSync(destinationPath)
+  var existFile = ''
+  // try to find html file automatically
+  for(var i in files){
+    if(!existFile && files[i].indexOf('.html') > -1){
+      existFile = files[i]
+    }
+    if(files[i] === 'index.html'){
+      existFile = files[i]
+      break
+    }
+    if(files[i] === 'home.html'){
+      existFile = files[i]
+      break
+    }
+  }
+  var htmlName = argv._[0] || existFile
+  // no any html file error
+  if(!htmlName){
+    console.log('#  \x1B[31m%s\x1B[39m', 'DALLY SERVER ERROR:')
+    console.log('#  \x1B[31m%s\x1B[39m', 'can not find any html file in this path', destinationPath)
+    return
+  }
+
+  htmlName = htmlName.replace('.html', '')
 
   app.use(express.static(destinationPath))
   
@@ -17,8 +42,17 @@ module.exports = function(argv, destinationPath){
   })
   
   app.use(function(err, req, res, next) {
-    console.error('err:',err.stack);
-    res.status(500).send('Something broke!');
+    var code = err.code
+    switch (code) {
+      case 'ENOENT':
+        console.log('#  \x1B[31mCan not find html file called '+htmlName+'.html\x1B[39m')
+        console.log('#  \x1B[31m%s\x1B[39m', 'Please specify html file by following command:')
+        console.log('#  dally htmlname')
+        break
+      default:
+        break
+    }
+    res.status(500).send('Can not find html file called ' +htmlName+'.html in this path: ' + destinationPath)
   })
 
   // default to port 3000
@@ -49,9 +83,11 @@ module.exports = function(argv, destinationPath){
   function listen (app, port) {
     return app.listen(port, function () {
       console.log('#  \x1B[36m%s\x1B[0m','DALLY SERVER START:')
-      console.log('#  listen on port: \x1B[33m%s\x1b[0m', port)
-      console.log('#  render: \x1B[33m%s\x1b[0m', htmlName+'.html')
-      console.log('#  static path: \x1B[33m%s\x1b[0m', destinationPath)
+      // specify html file automatically
+      var autoSpecify = !argv._[0] && existFile ? '\x1B[32m ( Specify by dally automatically) \x1B[39m' : ''
+      console.log('#  Listen on port: \x1B[33m%s\x1b[0m', port)
+      console.log('#  Render: \x1B[33m%s\x1b[0m', htmlName+'.html', autoSpecify)
+      console.log('#  Static path: \x1B[33m%s\x1b[0m', destinationPath)
       console.log('#  Need help ? Entry: \x1B[33m%s\x1b[0m', 'dally --help')
     })
   }
