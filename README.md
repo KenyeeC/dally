@@ -6,9 +6,9 @@ Easy to render your html file on server
 
 ## How to use
 
-- Entry your project path 
+- Enter your project path 
 
-- Enter the following command. 
+- Entry the following command. 
 
   It will render index.html under your current path on port 3000 by default
 ```
@@ -18,10 +18,15 @@ Easy to render your html file on server
 
 
 ## Feature
-- Specify html file to reder
+- Specify html file to reder, for example, render example.html
+
   It will render example.html
 ```
   dally example 
+```
+  Or entry the url like this
+```
+  http://127.0.0.1:3000/example.html
 ```
 
 
