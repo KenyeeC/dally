@@ -4,7 +4,7 @@
   "description": "quick build html server",
   "main": "bin/dally.js",
   "bin": {
-    "dally": "dally.js"
+    "dally": "bin/dally.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
